@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenGraph Image - Professeur Saibo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            background: linear-gradient(135deg, #8B1538 0%, #6B0F2A 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        /* Container OpenGraph - Format 1200x630px recommandé */
+        .og-container {
+            width: 1200px;
+            height: 630px;
+            background: linear-gradient(135deg, #8B1538 0%, #6B0F2A 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 80px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Motif de fond décoratif */
+        .og-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.08;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(212, 175, 55, 0.3) 35px, rgba(212, 175, 55, 0.3) 70px),
+                repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(212, 175, 55, 0.2) 35px, rgba(212, 175, 55, 0.2) 70px);
+        }
+
+        /* Bordure dorée décorative */
+        .og-border {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            right: 30px;
+            bottom: 30px;
+            border: 3px solid rgba(212, 175, 55, 0.5);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .og-border::before,
+        .og-border::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 3px solid #D4AF37;
+        }
+
+        .og-border::before {
+            top: -3px;
+            left: -3px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .og-border::after {
+            bottom: -3px;
+            right: -3px;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* Contenu principal */
+        .og-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            /* max-height: 500px; */
+        }
+
+        /* Icône/symbole spirituel en haut */
+        .og-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(212, 175, 55, 0.5);
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        /* Titre principal */
+        .og-title {
+            font-size: 64px;
+            font-weight: 700;
+            color: #F4D03F;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            margin-bottom: 15px;
+            line-height: 1.1;
+            letter-spacing: 1px;
+        }
+
+        .og-title-highlight {
+            color: #FFFFFF;
+            font-size: 46px;
+            display: block;
+            margin-top: 10px;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        /* Ligne de séparation dorée */
+        .og-divider {
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+            margin: 25px auto;
+        }
+
+        /* Sous-titre / description */
+        .og-subtitle {
+            font-size: 32px;
+            color: #F5F1E8;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            font-weight: 300;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Badges / points clés */
+        .og-badges {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .og-badge {
+            background: rgba(212, 175, 55, 0.2);
+            border: 2px solid #D4AF37;
+            color: #F4D03F;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 20px;
+            font-weight: 600;
+            font-family: Arial, sans-serif;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Contact info en bas */
+        .og-contact {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 26px;
+            color: #F4D03F;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 3;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Coins décoratifs dorés */
+        .corner-decoration {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            z-index: 1;
+        }
+
+        .corner-top-left {
+            top: 50px;
+            left: 50px;
+            border-top: 4px solid #D4AF37;
+            border-left: 4px solid #D4AF37;
+        }
+
+        .corner-bottom-right {
+            bottom: 50px;
+            right: 50px;
+            border-bottom: 4px solid #D4AF37;
+            border-right: 4px solid #D4AF37;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="og-container">
+        <!-- Motif de fond -->
+        <div class="og-pattern"></div>
+        
+        <!-- Bordure décorative -->
+        <div class="og-border"></div>
+        
+        <!-- Coins décoratifs -->
+        <div class="corner-decoration corner-top-left"></div>
+        <div class="corner-decoration corner-bottom-right"></div>
+
+        <!-- Contenu principal -->
+        <div class="og-content">
+            <!-- Icône spirituelle -->
+            <div class="og-icon">🕯️</div>
+
+            <!-- Titre -->
+            <h1 class="og-title">
+                Professeur Saibo
+                <span class="og-title-highlight">Grand Marabout Voyant</span>
+            </h1>
+
+            <!-- Ligne de séparation -->
+            <div class="og-divider"></div>
+
+            <!-- Sous-titre -->
+            <p class="og-subtitle">
+                Retour de l'Être Aimé • Rituels de Libération<br>
+                Guidance Spirituelle Authentique
+            </p>
+
+            <!-- Badges -->
+            <div class="og-badges">
+                <span class="og-badge">✨ +20 ans d'expérience</span>
+                <span class="og-badge">💕 Retour de l'amour</span>
+                <span class="og-badge">🔒 Confidentialité</span>
+            </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="og-contact">
+            📞 07 58 07 46 16 • WhatsApp
+        </div>
+    </div>
+
+    <script>
+        // Animation subtile au chargement
+        window.addEventListener('load', function() {
+            document.querySelector('.og-content').style.opacity = '0';
+            document.querySelector('.og-content').style.transform = 'translateY(20px)';
+            
+            setTimeout(function() {
+                document.querySelector('.og-content').style.transition = 'all 0.8s ease-out';
+                document.querySelector('.og-content').style.opacity = '1';
+                document.querySelector('.og-content').style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+
+</body>
+</html>
