@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>Page introuvable (404) - Professeur Saibo</title>
+    <meta name="description" content="La page que vous recherchez n'existe pas ou a été déplacée. Retournez à l'accueil du Professeur Saibo pour trouver les informations sur le retour de l'être aimé et les rituels spirituels.">
+    <meta name="robots" content="noindex, follow">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    
+    <style>
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a0a0f 0%, #3d1a28 50%, #1a0a0f 100%);
+            color: #f5e6d3;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Effet mystique de fond */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(139, 21, 56, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(218, 165, 32, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            animation: mysticalGlow 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes mysticalGlow {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.6; }
+        }
+
+        /* ============================================
+           CONTAINER PRINCIPAL
+           ============================================ */
+        .error-container {
+            max-width: 700px;
+            background: rgba(29, 18, 23, 0.9);
+            border: 2px solid rgba(139, 21, 56, 0.5);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(139, 21, 56, 0.3),
+                inset 0 0 60px rgba(218, 165, 32, 0.05);
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================
+           SYMBOLE SPIRITUEL
+           ============================================ */
+        .error-symbol {
+            font-size: 6rem;
+            color: #daa520;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(218, 165, 32, 0.6);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        /* ============================================
+           TYPOGRAPHIE
+           ============================================ */
+        .error-code {
+            font-size: 5rem;
+            font-weight: 700;
+            color: #8b1538;
+            margin-bottom: 0.5rem;
+            text-shadow: 
+                0 0 10px rgba(139, 21, 56, 0.8),
+                0 0 20px rgba(139, 21, 56, 0.5);
+            letter-spacing: 0.1em;
+        }
+
+        .error-title {
+            font-size: 1.8rem;
+            color: #daa520;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .error-message {
+            font-size: 1.1rem;
+            color: #d4c5b9;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .error-message strong {
+            color: #daa520;
+        }
+
+        /* ============================================
+           LIENS & NAVIGATION
+           ============================================ */
+        .error-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #8b1538 0%, #a91d47 100%);
+            color: #f5e6d3;
+            box-shadow: 0 4px 15px rgba(139, 21, 56, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #a91d47 0%, #c42454 100%);
+            box-shadow: 0 6px 25px rgba(139, 21, 56, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #daa520;
+            border: 2px solid #daa520;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(218, 165, 32, 0.1);
+            box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* ============================================
+           SECTION LIENS UTILES
+           ============================================ */
+        .useful-links {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(139, 21, 56, 0.3);
+        }
+
+        .useful-links h3 {
+            color: #daa520;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+        }
+
+        .link-item {
+            color: #d4c5b9;
+            text-decoration: none;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .link-item:hover {
+            background: rgba(139, 21, 56, 0.2);
+            color: #daa520;
+            transform: translateX(5px);
+        }
+
+        /* ============================================
+           CONTACT DIRECT
+           ============================================ */
+        .contact-emergency {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(218, 165, 32, 0.1);
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            border-radius: 10px;
+        }
+
+        .contact-emergency p {
+            color: #d4c5b9;
+            margin-bottom: 0.5rem;
+        }
+
+        .phone-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #daa520;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        .phone-number:hover {
+            color: #f5d76e;
+            text-decoration: underline;
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 768px) {
+            .error-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .error-code {
+                font-size: 3.5rem;
+            }
+
+            .error-title {
+                font-size: 1.4rem;
+            }
+
+            .error-message {
+                font-size: 1rem;
+            }
+
+            .error-symbol {
+                font-size: 4rem;
+            }
+
+            .btn {
+                padding: 0.9rem 1.5rem;
+                font-size: 0.95rem;
+            }
+
+            .phone-number {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem;
+            }
+
+            .error-container {
+                padding: 1.5rem 1rem;
+            }
+
+            .error-code {
+                font-size: 2.5rem;
+            }
+
+            .error-title {
+                font-size: 1.2rem;
+            }
+
+            .error-symbol {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <!-- Symbole spirituel -->
+        <div class="error-symbol">🔮</div>
+        
+        <!-- Code erreur -->
+        <div class="error-code">404</div>
+        
+        <!-- Titre -->
+        <h1 class="error-title">Le Chemin s'est Égaré</h1>
+        
+        <!-- Message -->
+        <p class="error-message">
+            La page que vous cherchez n'existe pas ou a été déplacée. <br>
+            Mais ne vous inquiétez pas, le <strong>Professeur Saibo</strong> est là pour vous guider vers la bonne direction.
+        </p>
+        
+        <!-- Boutons principaux -->
+        <div class="error-links">
+            <a href="/" class="btn btn-primary">🏠 Retour à l'Accueil</a>
+            <a href="/#contact" class="btn btn-secondary">📞 Contacter le Professeur Saibo</a>
+        </div>
+        
+        <!-- Liens utiles -->
+        <div class="useful-links">
+            <h3>Pages principales :</h3>
+            <div class="links-grid">
+                <a href="/#retour-etre-aime" class="link-item">→ Retour de l'être aimé</a>
+                <a href="/#services" class="link-item">→ Services de voyance & rituels</a>
+                <a href="/#qui-est-saibo" class="link-item">→ Qui est le Professeur Saibo ?</a>
+                <a href="/#temoignages" class="link-item">→ Témoignages clients</a>
+                <a href="/#zones" class="link-item">→ Zones d'intervention</a>
+                <a href="/#faq" class="link-item">→ Questions fréquentes</a>
+            </div>
+        </div>
+        
+        <!-- Contact d'urgence -->
+        <div class="contact-emergency">
+            <p><strong>Besoin d'aide immédiate ?</strong></p>
+            <p>Contactez le Professeur Saibo directement :</p>
+            <a href="tel:+33758074616" class="phone-number">📞 07 58 07 46 16</a>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+                <a href="https://wa.me/33758074616" style="color: #daa520; text-decoration: none;" target="_blank" rel="noopener">💬 WhatsApp disponible</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Redirection automatique après 30 secondes (optionnel)
+        // setTimeout(() => {
+        //     window.location.href = '/';
+        // }, 30000);
+
+        // Logger l'erreur 404 (optionnel - pour analytics)
+        if (window.gtag) {
+            gtag('event', 'page_not_found', {
+                'page_location': window.location.href,
+                'page_path': window.location.pathname
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+# ============================================
+# .HTACCESS POUR PROFESSEUR SAIBO
+# Site: https://www.professeur-saibo.fr
+# Hébergement: Hostinger
+# Dernière mise à jour: 2025-01-08
+# ============================================
+
+# ============================================
+# 1. REDIRECTIONS HTTPS & WWW
+# ============================================
+
+# Activer le module de réécriture
+RewriteEngine On
+
+# Forcer HTTPS (très important pour la sécurité)
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Forcer WWW (ou enlever WWW selon ta préférence)
+# OPTION A : Forcer www.professeur-saibo.fr
+# RewriteCond %{HTTP_HOST} !^www\. [NC]
+# RewriteRule ^(.*)$ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# OPTION B : Enlever www (si tu préfères professeur-saibo.fr sans www)
+# Décommenter ces 2 lignes et commenter les 2 lignes au-dessus si tu veux enlever www
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1%{REQUEST_URI} [L,R=301]
+
+# ============================================
+# 2. PAGE 404 PERSONNALISÉE
+# ============================================
+ErrorDocument 404 /404.html
+
+# ============================================
+# 3. REDIRECTIONS URL ANCIENNES (si nécessaire)
+# ============================================
+# Exemple : rediriger une ancienne URL vers la nouvelle
+# Redirect 301 /old-page.html https://www.professeur-saibo.fr/
+# Redirect 301 /contact-ancien.html https://www.professeur-saibo.fr/#contact
+
+# Rediriger index.html vers la racine (éviter contenu dupliqué)
+RewriteCond %{THE_REQUEST} ^.*/index\.html
+RewriteRule ^(.*)index\.html$ https://www.professeur-saibo.fr/$1 [R=301,L]
+
+# ============================================
+# 4. SÉCURITÉ
+# ============================================
+
+# Bloquer l'accès aux fichiers sensibles
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql|bak|zip|tar|gz)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Désactiver la navigation dans les répertoires
+Options -Indexes
+
+# Protéger contre les injections XSS
+<IfModule mod_headers.c>
+    Header set X-XSS-Protection "1; mode=block"
+    Header always append X-Frame-Options SAMEORIGIN
+    Header set X-Content-Type-Options nosniff
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Bloquer les requêtes suspectes
+RewriteCond %{QUERY_STRING} (<|%3C).*script.*(>|%3E) [NC,OR]
+RewriteCond %{QUERY_STRING} GLOBALS(=|[|%[0-9A-Z]{0,2}) [OR]
+RewriteCond %{QUERY_STRING} _REQUEST(=|[|%[0-9A-Z]{0,2})
+RewriteRule ^(.*)$ - [F,L]
+
+# Bloquer les user-agents malveillants
+<IfModule mod_setenvif.c>
+    SetEnvIfNoCase User-Agent "^$" bad_bot
+    SetEnvIfNoCase User-Agent "360Spider" bad_bot
+    SetEnvIfNoCase User-Agent "AhrefsBot" bad_bot
+    SetEnvIfNoCase User-Agent "SemrushBot" bad_bot
+    SetEnvIfNoCase User-Agent "MJ12bot" bad_bot
+    SetEnvIfNoCase User-Agent "DotBot" bad_bot
+    SetEnvIfNoCase User-Agent "BLEXBot" bad_bot
+    <Limit GET POST PUT>
+        Order Allow,Deny
+        Allow from all
+        Deny from env=bad_bot
+    </Limit>
+</IfModule>
+
+# ============================================
+# 5. PERFORMANCES & CACHE
+# ============================================
+
+# Activer la compression GZIP
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json application/xml application/rss+xml application/atom+xml image/svg+xml
+</IfModule>
+
+# Cache navigateur (très important pour la vitesse)
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Images
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    
+    # CSS et JavaScript
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    
+    # Fonts
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+    
+    # HTML (cache court pour contenu dynamique)
+    ExpiresByType text/html "access plus 1 week"
+    
+    # Favicon
+    ExpiresByType image/vnd.microsoft.icon "access plus 1 year"
+</IfModule>
+
+# Cache-Control headers
+<IfModule mod_headers.c>
+    # Images, CSS, JS, Fonts : cache 1 an
+    <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|css|js|woff|woff2|ttf|eot)$">
+        Header set Cache-Control "max-age=31536000, public"
+    </FilesMatch>
+    
+    # HTML : cache 1 semaine
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "max-age=604800, public, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
+# ============================================
+# 6. OPTIMISATION SEO
+# ============================================
+
+# Enlever le trailing slash (ou l'ajouter)
+# OPTION A : Enlever le slash final
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} (.+)/$
+RewriteRule ^ %1 [R=301,L]
+
+# Bloquer les paramètres de tracking inutiles (éviter contenu dupliqué)
+RewriteCond %{QUERY_STRING} ^utm_source=.*$ [OR]
+RewriteCond %{QUERY_STRING} ^utm_medium=.*$ [OR]
+RewriteCond %{QUERY_STRING} ^utm_campaign=.*$ [OR]
+RewriteCond %{QUERY_STRING} ^ref=.*$ [OR]
+RewriteCond %{QUERY_STRING} ^sid=.*$
+RewriteRule ^(.*)$ https://www.professeur-saibo.fr/$1? [R=301,L]
+
+# ============================================
+# 7. TYPES MIME
+# ============================================
+<IfModule mod_mime.c>
+    AddType application/javascript js
+    AddType text/css css
+    AddType image/svg+xml svg svgz
+    AddType image/webp webp
+    AddType font/woff woff
+    AddType font/woff2 woff2
+    AddType application/vnd.ms-fontobject eot
+    AddType font/ttf ttf
+</IfModule>
+
+# ============================================
+# 8. CHARSET PAR DÉFAUT
+# ============================================
+AddDefaultCharset UTF-8
+
+# ============================================
+# 9. DÉSACTIVER LES ETAGS (pour performances)
+# ============================================
+<IfModule mod_headers.c>
+    Header unset ETag
+</IfModule>
+FileETag None
+
+# ============================================
+# 10. REDIRECTIONS SPÉCIFIQUES (personnaliser)
+# ============================================
+
+# Redirection page contact vers section contact
+# Redirect 301 /contact.html https://www.professeur-saibo.fr/#contact
+
+# Redirection services vers section services
+# Redirect 301 /services.html https://www.professeur-saibo.fr/#services
+
+# Redirection témoignages
+# Redirect 301 /temoignages.html https://www.professeur-saibo.fr/#temoignages
+
+# ============================================
+# 11. HOTLINK PROTECTION (éviter vol d'images)
+# ============================================
+# Empêche d'autres sites d'utiliser tes images directement
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTP_REFERER} !^$
+    RewriteCond %{HTTP_REFERER} !^https://(www\.)?professeur-saibo\.fr [NC]
+    RewriteCond %{REQUEST_URI} \.(jpg|jpeg|png|gif|webp|svg)$ [NC]
+    RewriteRule .* - [F,L]
+</IfModule>
+
+# ============================================
+# 12. FORCE DOWNLOAD POUR CERTAINS FICHIERS
+# ============================================
+# Si tu veux forcer le téléchargement de PDFs, docs, etc.
+# <FilesMatch "\.(pdf|doc|docx|zip)$">
+#     Header set Content-Disposition "attachment"
+# </FilesMatch>
+
+# ============================================
+# NOTES IMPORTANTES
+# ============================================
+# 
+# 1. HTTPS : Le site DOIT être en HTTPS (règle ligne 13-15)
+# 2. WWW : Choisis entre www ou non-www (lignes 18-26)
+# 3. 404 : Page d'erreur personnalisée activée (ligne 32)
+# 4. CACHE : Cache optimisé pour performances (lignes 79-114)
+# 5. SÉCURITÉ : Protection XSS, injections, bots malveillants (lignes 40-71)
+# 6. SEO : Évite contenu dupliqué (lignes 120-138)
+# 7. PERFORMANCES : Compression GZIP + cache navigateur (lignes 73-114)
+# 
+# MAINTENANCE :
+# - Ajoute des redirections 301 si tu changes des URLs (ligne 153+)
+# - Mets à jour la date de dernière modification en haut
+# - Teste le site après chaque modification du .htaccess
+# 
+# HOSTINGER SPÉCIFIQUE :
+# - Ce .htaccess est optimisé pour Apache (utilisé par Hostinger)
+# - Si un module n'est pas activé, contacte le support Hostinger
+# - Les règles de cache sont compatibles avec le CDN Hostinger
+# 
+# ============================================

@@ -1,0 +1,91 @@
+# Robots.txt pour Professeur Saibo - Voyant Marabout
+# Site: https://www.professeur-saibo.fr
+# Dernière mise à jour: 2025
+
+# ============================================
+# RÈGLES POUR TOUS LES ROBOTS
+# ============================================
+User-agent: *
+
+# Autoriser l'exploration de toutes les pages importantes
+Allow: /
+Allow: /index.html
+Allow: /images/
+Allow: /favicon/
+Allow: /professeur-saibo-landing.css
+Allow: /professeur-saibo-landing.js
+
+# Bloquer les fichiers et dossiers techniques/inutiles
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /admin/
+Disallow: /backup/
+Disallow: /private/
+Disallow: /*.log$
+Disallow: /*.sql$
+Disallow: /*.zip$
+
+# Bloquer les paramètres de tracking inutiles
+Disallow: /*?utm_source=
+Disallow: /*?utm_medium=
+Disallow: /*?utm_campaign=
+Disallow: /*?ref=
+Disallow: /*?sid=
+Disallow: /*?session=
+
+# ============================================
+# RÈGLES SPÉCIFIQUES GOOGLE
+# ============================================
+User-agent: Googlebot
+Allow: /
+Allow: /images/
+Allow: /*.css
+Allow: /*.js
+Crawl-delay: 0
+
+# ============================================
+# RÈGLES SPÉCIFIQUES GOOGLE IMAGES
+# ============================================
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /favicon/
+
+# ============================================
+# RÈGLES SPÉCIFIQUES BING
+# ============================================
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# ============================================
+# BLOQUER LES MAUVAIS BOTS
+# ============================================
+# Bloquer les scrapers connus
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+# ============================================
+# SITEMAP
+# ============================================
+Sitemap: https://www.professeur-saibo.fr/sitemap.xml
+
+# ============================================
+# NOTES IMPORTANTES
+# ============================================
+# 1. Ce robots.txt autorise l'exploration complète du site
+# 2. Les ressources CSS/JS sont autorisées pour un bon rendu
+# 3. Les images sont accessibles pour Google Images
+# 4. Les mauvais bots (scrapers) sont bloqués
+# 5. Le sitemap est déclaré pour faciliter l'indexation

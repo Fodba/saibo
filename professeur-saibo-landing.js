@@ -219,31 +219,81 @@ function initFormValidation() {
             return;
         }
         
-        // Simulation d'envoi (à remplacer par votre logique d'envoi réelle)
-        console.log('📧 Formulaire soumis :', formData);
+        // // Simulation d'envoi (à remplacer par votre logique d'envoi réelle)
+        // console.log('📧 Formulaire soumis :', formData);
         
-        // Message de confirmation
-        const confirmationMessage = document.createElement('div');
-        confirmationMessage.className = 'form-confirmation';
-        confirmationMessage.innerHTML = `
-            <div style="background: linear-gradient(135deg, #28A745, #20803A); color: white; padding: 2rem; border-radius: 10px; text-align: center; margin-top: 2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.2);">
-                <h3 style="color: white; margin-bottom: 1rem;">✅ Demande envoyée avec succès !</h3>
-                <p style="margin-bottom: 1rem;">Merci ${formData.prenom} pour votre demande de consultation.</p>
-                <p style="margin-bottom: 1rem;">Le Professeur Saibo vous contactera dans les plus brefs délais au <strong>${formData.telephone}</strong>.</p>
-                <p style="font-size: 0.9rem; opacity: 0.9;">Vous pouvez également le contacter directement :</p>
-                <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="tel:+33758074616" style="background: white; color: #28A745; padding: 0.75rem 1.5rem; border-radius: 25px; text-decoration: none; font-weight: 600; display: inline-block;">📞 07 58 07 46 16</a>
-                    <a href="https://wa.me/33758074616" target="_blank" style="background: #25D366; color: white; padding: 0.75rem 1.5rem; border-radius: 25px; text-decoration: none; font-weight: 600; display: inline-block;">💬 WhatsApp</a>
-                </div>
-            </div>
-        `;
+        // // Message de confirmation
+        // const confirmationMessage = document.createElement('div');
+        // confirmationMessage.className = 'form-confirmation';
+        // confirmationMessage.innerHTML = `
+        //     <div style="background: linear-gradient(135deg, #28A745, #20803A); color: white; padding: 2rem; border-radius: 10px; text-align: center; margin-top: 2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.2);">
+        //         <h3 style="color: white; margin-bottom: 1rem;">✅ Demande envoyée avec succès !</h3>
+        //         <p style="margin-bottom: 1rem;">Merci ${formData.prenom} pour votre demande de consultation.</p>
+        //         <p style="margin-bottom: 1rem;">Le Professeur Saibo vous contactera dans les plus brefs délais au <strong>${formData.telephone}</strong>.</p>
+        //         <p style="font-size: 0.9rem; opacity: 0.9;">Vous pouvez également le contacter directement :</p>
+        //         <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        //             <a href="tel:+33758074616" style="background: white; color: #28A745; padding: 0.75rem 1.5rem; border-radius: 25px; text-decoration: none; font-weight: 600; display: inline-block;">📞 07 58 07 46 16</a>
+        //             <a href="https://wa.me/33758074616" target="_blank" style="background: #25D366; color: white; padding: 0.75rem 1.5rem; border-radius: 25px; text-decoration: none; font-weight: 600; display: inline-block;">💬 WhatsApp</a>
+        //         </div>
+        //     </div>
+        // `;
         
-        // Insérer le message et masquer le formulaire
-        contactForm.style.display = 'none';
-        contactForm.parentElement.insertBefore(confirmationMessage, contactForm.nextSibling);
+        // // Insérer le message et masquer le formulaire
+        // contactForm.style.display = 'none';
+        // contactForm.parentElement.insertBefore(confirmationMessage, contactForm.nextSibling);
         
-        // Scroll vers le message de confirmation
-        confirmationMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // // Scroll vers le message de confirmation
+        // confirmationMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // ============================================
+        // ENVOI VIA MAILTO (CLIENT MAIL DU VISITEUR)
+        // ============================================
+
+        // Construire le corps de l'email
+        const emailBody = `
+        NOUVELLE DEMANDE DE CONSULTATION - Professeur Saibo
+        ═══════════════════════════════════════════════
+
+        INFORMATIONS DU CONSULTANT :
+        ────────────────────────────
+        Nom : ${formData.nom}
+        Prénom : ${formData.prenom}
+        Email : ${formData.email}
+        Téléphone : ${formData.telephone}
+
+        DEMANDE :
+        ─────────
+        Motif de consultation : ${formData.motif}
+        Préférence de contact : ${formData.preference || 'Non spécifié'}
+
+        DESCRIPTION DÉTAILLÉE :
+        ───────────────────────
+        ${formData.description}
+
+        LOCALISATION & DISPONIBILITÉS :
+        ────────────────────────────────
+        Pays / Ville : ${formData.paysVille}
+        Disponibilités : ${formData.disponibilites || 'Non spécifié'}
+
+        ═══════════════════════════════════════════════
+        Message envoyé depuis www.professeur-saibo.fr`.trim();
+
+        // Créer le sujet de l'email
+        const emailSubject = `Nouvelle consultation : ${formData.motif} - ${formData.nom} ${formData.prenom}`;
+
+        // Encoder pour URL
+        const mailtoLink = `mailto:professeursaibo@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+
+        // Ouvrir le client mail
+        window.location.href = mailtoLink;
+
+        // Message d'information (car le client mail va s'ouvrir)
+        alert(`✅ Votre client mail va s'ouvrir avec votre demande pré-remplie.\n\nVérifiez les informations et cliquez sur "Envoyer" dans votre logiciel de messagerie.\n\nSi le client mail ne s'ouvre pas, contactez directement :\n📞 07 58 07 46 16\n💬 WhatsApp disponible`);
+
+
+
+
+
         
         // Tracking (optionnel - Google Analytics)
         if (typeof gtag !== 'undefined') {
